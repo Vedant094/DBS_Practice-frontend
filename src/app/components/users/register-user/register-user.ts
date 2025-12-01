@@ -18,6 +18,7 @@ export class RegisterUserComponent {
   managerId = '';
   error = '';
   loading = false;
+  message=''
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,9 +29,20 @@ export class RegisterUserComponent {
       return;
     }
     this.loading = true;
-    const body = {firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password };
+    const body = {firstName: this.firstName,
+                  lastName: this.lastName, 
+                  email: this.email, 
+                  password: this.password };
+
+
     this.http.post(`${environment.apiBase}/users/${this.managerId}`, body).subscribe({
-      next: () => { this.loading = false; this.router.navigate(['/login']); },
+
+      next: () => { this.loading = false;
+                    this.message='User registered successfully';
+                    setTimeout(()=>{
+                      this.router.navigate(['/login']);
+                    },2000);
+                     },
       error: err => { this.loading = false; this.error = err?.error || 'Failed to register user'; }
     });
   }

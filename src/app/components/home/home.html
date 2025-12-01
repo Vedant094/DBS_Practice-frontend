@@ -21,8 +21,16 @@
             <i class="bi bi-person-circle fs-5"></i> User
           </a>
           <ul class="dropdown-menu shadow">
-            <li><a class="dropdown-item" routerLink="/login"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
-            <li><a class="dropdown-item" routerLink="/register-user"><i class="bi bi-person-plus me-2"></i>Sign Up</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/login">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/register-user">
+                <i class="bi bi-person-plus me-2"></i>Sign Up
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -33,16 +41,31 @@
             <i class="bi bi-briefcase-fill fs-5"></i> Manager
           </a>
           <ul class="dropdown-menu shadow">
-            <li><a class="dropdown-item" routerLink="/login"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
-            <li><a class="dropdown-item" routerLink="/register-manager"><i class="bi bi-person-plus me-2"></i>Sign Up</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/login">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/register-manager">
+                <i class="bi bi-person-plus me-2"></i>Sign Up
+              </a>
+            </li>
           </ul>
+        </li>
+
+        <!-- THEME TOGGLE BUTTON (Professionally placed) -->
+        <li class="nav-item ms-3 d-flex align-items-center">
+          <button (click)="toggleTheme()" class="btn btn-sm btn-outline-secondary">
+            <span *ngIf="!themeService.isDarkMode()">🌙</span>
+            <span *ngIf="themeService.isDarkMode()">☀️</span>
+          </button>
         </li>
 
       </ul>
     </div>
   </div>
 </nav>
-
 
 <!-- HERO SECTION -->
 <div class="hero-container text-center">
@@ -53,6 +76,9 @@
     Manage tasks, users, and approvals efficiently.
   </p>
 
-  <img src="https://cdn-icons-png.flaticon.com/512/9068/9068859.png"
-       class="hero-image" alt="Task Illustration" />
+  <img
+    src="https://cdn-icons-png.flaticon.com/512/9068/9068859.png"
+    class="hero-image"
+    alt="Task Illustration"
+  />
 </div>

@@ -73,4 +73,8 @@ export class AuthService {
     const token = this.getToken();
     this.loggedIn.next(token ? !this.isTokenExpired(token) : false);
   }
+
+  checkEmail(email:string){
+    return this.http.get<{exists:boolean}>(`${this.base}/auth/check-email?email=${email}`);
+  }
 }

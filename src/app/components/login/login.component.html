@@ -2,12 +2,10 @@
 
   <div class="login-card">
 
-
     <!-- Illustration -->
     <div class="illustration">
       <img src="https://cdn-icons-png.flaticon.com/512/9523/9523226.png" 
-     class="login-img" alt="Login 3D Illustration">
-
+           class="login-img" alt="Login 3D Illustration">
     </div>
 
     <h3 class="text-center mb-3">Welcome Back</h3>
@@ -24,15 +22,37 @@
       <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" />
     </div>
 
-    <!-- Error -->
-    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+    <!-- Forgot Password -->
+    <div class="text-end mt-2">
+      <a routerLink="/forgot-password" style="text-decoration:none; font-size:14px; color:#4f46e5;">
+        Forgot Password?
+      </a>
+    </div>
 
-    <!-- Button -->
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-danger mt-3">
+      {{ error }}
+
+      <!-- SIGN-UP BUTTON WHEN USER DOESN'T EXIST -->
+      <div *ngIf="userNotFound" class="mt-2 text-center">
+        <a routerLink="/register-user" class="btn btn-sm btn-primary">
+          Create an Account
+        </a>
+      </div>
+    </div>
+
+    <!-- Login Button -->
     <button class="btn login-btn w-100 mt-3"
             (click)="submit()"
             [disabled]="loading">
       {{ loading ? 'Logging in...' : 'Login' }}
     </button>
+
   </div>
 
 </div>
+
+
+
+
+

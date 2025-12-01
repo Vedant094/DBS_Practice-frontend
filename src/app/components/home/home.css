@@ -81,3 +81,13 @@
   50% { transform: translateX(-50%) scale(1.12); }
   100% { transform: translateX(-50%) scale(1); }
 }
+
+
+.theme-btn {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--primary-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}

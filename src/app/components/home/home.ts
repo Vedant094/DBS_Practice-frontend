@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { ThemeService } from '../../auth/theme.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class Home {
   userOpen = false;
   managerOpen = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,public themeService:ThemeService) {}
 
   toggleUser() {
     this.userOpen = !this.userOpen;
@@ -42,5 +43,9 @@ export class Home {
 
   login(){
     this.router.navigate(['/login']);
+  }
+
+  toggleTheme(){
+    this.themeService.toggleTheme();
   }
 }

@@ -6,35 +6,58 @@ import { AuthService } from '../../auth/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  standalone:false
+  standalone: false
 })
 export class LoginComponent {
   email = '';
   password = '';
   error = '';
   loading = false;
+  userNotFound = false;
 
   constructor(private auth: AuthService, private router: Router) {}
 
   submit() {
     if (!this.email || !this.password) {
       this.error = 'Email and password are required';
+      this.userNotFound = false;
       return;
     }
+
     this.loading = true;
     this.error = '';
+    this.userNotFound = false;
 
-    this.auth.login(this.email, this.password).subscribe({
+    // STEP 1 → Check Email
+    this.auth.checkEmail(this.email).subscribe({
       next: (res) => {
-        this.loading = false;
-        const role = this.auth.getRole();
-        if (role === 'ROLE_MANAGER') this.router.navigate(['/manager-dashboard']);
-        else if (role === 'ROLE_USER') this.router.navigate(['/user-dashboard']);
-        else this.router.navigate(['/']);
+        if (!res.exists) {
+          this.loading = false;
+          this.error = 'User not found';
+          this.userNotFound = true;
+          return;
+        }
+
+        // STEP 2 → Email exists, try logging in
+        this.auth.login(this.email, this.password).subscribe({
+          next: () => {
+            this.loading = false;
+            const role = this.auth.getRole();
+            if (role === 'ROLE_MANAGER') this.router.navigate(['/manager-dashboard']);
+            else if (role === 'ROLE_USER') this.router.navigate(['/user-dashboard']);
+            else this.router.navigate(['/']);
+          },
+          error: () => {
+            this.loading = false;
+            this.error = 'Incorrect email or password';
+            this.userNotFound = false;
+          }
+        });
       },
-      error: (err) => {
+
+      error: () => {
         this.loading = false;
-        this.error = (err?.error && typeof err.error === 'object') ? (err.error.error || JSON.stringify(err.error)) : (err?.error || 'Login failed. Check credentials');
+        this.error = 'Something went wrong. Try again.';
       }
     });
   }

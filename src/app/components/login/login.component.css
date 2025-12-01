@@ -26,24 +26,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Back button */
-.back-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  border: none;
-  background: #e0e7ff;
-  padding: 6px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-  transition: 0.2s ease;
-}
-
-.back-btn:hover {
-  background: #c7d2fe;
-  transform: translateY(-2px);
-}
-
 /* Illustration */
 .illustration img {
   width: 160px;
@@ -90,6 +72,19 @@
   box-shadow: 0px 0px 4px rgba(99,102,241,0.4);
 }
 
+/* Forgot Password link */
+.forgot-password-link {
+  text-decoration: none;
+  font-size: 14px;
+  color: #4f46e5;
+  transition: 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
+
 /* Login Button */
 .login-btn {
   padding: 12px;
@@ -115,4 +110,19 @@
   font-size: 14px;
   text-align: center;
 }
+
+/* Sign Up Button under 'User Not Found' */
+.alert .btn-primary {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+/* Smooth spacing for sign up btn */
+.alert .mt-2 {
+  margin-top: 10px !important;
+}
+
+
+
 

@@ -1,30 +1,53 @@
 <div class="container mt-4">
   <h3>All Requests</h3>
 
-  <div *ngFor="let r of requests" class="request-card mb-3 p-3">
+  <!-- CHIP FILTER -->
+  <div class="chip-filter mb-3">
+    <div class="chip" [class.active]="filterStatus === 'ALL'" (click)="setFilter('ALL')">All</div>
+    <div class="chip" [class.active]="filterStatus === 'PENDING'" (click)="setFilter('PENDING')">Pending</div>
+    <div class="chip" [class.active]="filterStatus === 'REJECTED'" (click)="setFilter('REJECTED')">Rejected</div>
+  </div>
 
+  <div *ngFor="let r of paginatedRequests" class="request-card mb-3 p-3">
     <div class="d-flex justify-content-between align-items-start">
 
       <div>
-        <h5 class="request-title">
-          {{ r.requestType || r.title || 'Request' }}
-        </h5>
+        <h5 class="request-title">{{ r.requestType || 'Request' }}</h5>
 
         <p class="request-status">
           Status:
-          <span class="status-badge"
-                [ngClass]="r.status?.toLowerCase()">
+          <span class="status-badge" [ngClass]="r.status?.toLowerCase()">
             {{ r.status }}
           </span>
         </p>
+
+        <!-- USER DETAILS -->
+        <div class="user-details mt-2">
+          <p><strong>User ID:</strong> {{ r.user.id }}</p>
+          <p><strong>Name:</strong> {{ r.user.firstName }} {{ r.user.lastName }}</p>
+          <p><strong>Email:</strong> {{ r.user.email }}</p>
+        </div>
       </div>
 
-      <!-- SHOW BUTTONS ONLY IF STATUS IS PENDING -->
+      <!-- ACTION BUTTONS -->
       <div class="action-buttons" *ngIf="r.status === 'PENDING'">
         <button class="btn approve-btn" (click)="approve(r.id)">Approve</button>
         <button class="btn reject-btn" (click)="reject(r.id)">Reject</button>
       </div>
 
     </div>
+  </div>
+
+  <!-- PAGINATION CONTROLS -->
+  <div class="pagination-wrapper" *ngIf="totalPages > 1">
+    <button class="btn page-btn" (click)="prevPage()" [disabled]="page === 1">Previous</button>
+
+    <ng-container *ngFor="let p of [].constructor(totalPages); let i = index">
+      <button class="btn page-number" [class.active-page]="page === i + 1" (click)="goToPage(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </ng-container>
+
+    <button class="btn page-btn" (click)="nextPage()" [disabled]="page === totalPages">Next</button>
   </div>
 </div>
