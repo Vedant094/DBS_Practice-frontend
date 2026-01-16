@@ -1,0 +1,278 @@
+/* ============================
+   PAGE BACKGROUND
+============================ */
+.login-wrapper {
+  min-height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle at top left, #dbeafe 0%, #e0e7ff 40%, #eef2ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* Particle Canvas */
+#particleCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ============================
+   CARD WRAPPER
+============================ */
+.tilt-wrapper {
+  perspective: 1200px;
+}
+
+/* ============================
+   LOGIN CARD (WIDER + CLEANER)
+============================ */
+.login-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 44px 38px 40px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.55);
+  box-shadow: 0px 30px 65px rgba(30, 41, 59, 0.28);
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 0.7s ease-out;
+  transition: transform 0.3s ease-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(26px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============================
+   AVATAR (FIXED POSITIONING)
+============================ */
+.illustration {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  margin-top: -22px; /* slight upward pull */
+}
+
+.login-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.20);
+  animation: floatImg 3s ease-in-out infinite;
+}
+
+@keyframes floatImg {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* ============================
+   TITLES
+============================ */
+.title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 22px;
+  font-size: 1.05rem;
+}
+
+/* ============================
+   INPUT GROUP
+============================ */
+.input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.input-group i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #6b7280;
+}
+
+/* Beautiful input fields */
+.fancy-input {
+  width: 100%;
+  height: 52px;
+  border-radius: 16px;
+  padding-left: 45px;
+  background: rgba(255,255,255,0.75);
+  border: 1.5px solid #cbd5e1;
+  font-size: 1rem;
+  transition: 0.25s ease;
+}
+
+.fancy-input:focus {
+  background: #fff;
+  border-color: #4f46e5;
+  box-shadow: 0 0 12px rgba(79,70,229,0.45);
+}
+
+/* ============================
+   PASSWORD TOGGLE (FIXED!!)
+============================ */
+.password-group {
+  position: relative;
+}
+
+/* ensure space for eye */
+.password-group .fancy-input {
+  padding-right: 52px;
+}
+
+/* Perfectly centered eye icon */
+.toggle-password {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 0;
+  display: flex;
+  align-items: center;      /* PERFECT VERTICAL CENTER */
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #6b7280;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0 6px;
+}
+
+.toggle-password:hover {
+  color: #4338ca;
+}
+
+/* ============================
+   LOGIN BUTTON
+============================ */
+.login-btn {
+  margin-top: 10px;
+  padding: 14px;
+  font-size: 18px;
+  border-radius: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #fff;
+  transition: 0.3s;
+  border: none;
+  width: 100%;
+}
+
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(79,70,229,0.35);
+}
+
+/* Loader spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: white;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================
+   ERROR SHAKE
+============================ */
+.shake {
+  animation: shakeAnim 0.3s ease;
+}
+
+@keyframes shakeAnim {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px;
+    border-radius: 20px;
+  }
+
+  .login-img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+
+/* -----------------------------------------
+   FIX FOR BOOTSTRAP .form-control INPUTS
+   (Ensures perfect alignment + spacing)
+------------------------------------------ */
+.form-control {
+  width: 100%;
+  height: 52px;
+  border-radius: 16px !important;
+  padding-left: 45px !important;
+  padding-right: 52px !important; /* space for eye icon */
+  background: rgba(255,255,255,0.75) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  font-size: 1rem !important;
+  transition: 0.25s ease !important;
+}
+
+.form-control:focus {
+  background: #fff !important;
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 12px rgba(79,70,229,0.45) !important;
+}
+
+/* -----------------------------------------
+   FIXED EYE ICON POSITION (PASSWORD TOGGLE)
+------------------------------------------ */
+.password-group {
+  position: relative !important;
+}
+
+.password-group .toggle-password {
+  position: absolute !important;
+  right: 14px !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.25rem !important;
+  cursor: pointer !important;
+  color: #6b7280 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  width: 42px !important; /* ensures crisp tap area */
+}
+
+.password-group .toggle-password:hover {
+  color: #4338ca !important;
+}

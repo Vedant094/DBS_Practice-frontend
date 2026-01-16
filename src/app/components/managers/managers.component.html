@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h4>Managers</h4>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table class="table table-striped" *ngIf="managers && managers.length">
+    <thead><tr><th>ID</th><th>Name</th><th>Email</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let m of managers">
+        <td>{{ m.id }}</td>
+        <td>{{ m.name }}</td>
+        <td>{{ m.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && (!managers || managers.length===0)" class="text-muted">No managers found.</div>
+</div>

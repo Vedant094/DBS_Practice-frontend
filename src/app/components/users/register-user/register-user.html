@@ -1,0 +1,70 @@
+<div class="register-wrapper">
+
+  <!-- Background floating shapes -->
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+  <div class="bg-shape shape-3"></div>
+
+  <div class="register-card">
+
+    <!-- Illustration -->
+    <div class="illustration">
+  <div class="img-wrapper">
+    <div class="img-glow"></div>
+    <img src="https://cdn-icons-png.flaticon.com/512/9513/9513741.png"
+         class="register-img"
+         alt="3D Registration Illustration">
+  </div>
+
+
+  
+</div>
+    <h3 class="text-center mb-1 title">Create Your Account</h3>
+    <p class="subtitle text-center">Fill in the details to get started</p>
+
+    <!-- Input Fields -->
+    <input class="form-control animated-input my-2" placeholder="First Name" [(ngModel)]="firstName" />
+    <input class="form-control animated-input my-2" placeholder="Last Name" [(ngModel)]="lastName" />
+    <input class="form-control animated-input my-2" placeholder="Email" [(ngModel)]="email" />
+
+    <!-- Password with toggle -->
+    <div class="password-group my-2">
+      <input [type]="showPassword ? 'text' : 'password'"
+             class="form-control animated-input"
+             placeholder="Password"
+             [(ngModel)]="password" />
+
+      <button type="button" class="toggle-password" (click)="togglePassword()">
+        <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+      </button>
+    </div>
+
+    <input class="form-control animated-input my-2" placeholder="Manager ID" [(ngModel)]="managerId" />
+
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-danger shake mt-2">
+      {{ error }}
+    </div>
+
+    <!-- Submit Button -->
+    <button class="btn register-btn w-100 mt-3"
+            (click)="submit()"
+            [disabled]="loading">
+      
+      <span *ngIf="!loading">Register</span>
+
+      <span *ngIf="loading" class="loader-inline">
+        <span class="spinner"></span>
+        Creating Account...
+      </span>
+
+    </button>
+
+    <!-- Success message -->
+    <div class="alert alert-success success-anim mt-3" *ngIf="message">
+      {{ message }} — Redirecting to login...
+    </div>
+
+  </div>
+
+</div>

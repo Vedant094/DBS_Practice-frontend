@@ -1,0 +1,222 @@
+<div class="page-intro-animation">
+
+  <div class="home-shell">
+
+    <!-- FLOATING THEME TOGGLE -->
+    <button class="theme-toggle" (click)="toggleTheme()">
+      <span *ngIf="!themeService.isDarkMode()">🌙</span>
+      <span *ngIf="themeService.isDarkMode()">☀️</span>
+    </button>
+
+    <!-- =========================
+        HERO SECTION
+      ========================= -->
+    <section class="hero-section">
+
+      <div class="hero-inner">
+
+        <!-- LEFT: TEXT / CTA -->
+        <div class="hero-left reveal">
+          <div class="hero-chip">
+            <span class="chip-dot"></span>
+            TaskM · Manager & User Portal
+          </div>
+
+          <h1 class="hero-title">
+            Organise work like a
+            <span>pro</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            TaskM brings managers and users together on a single workspace —
+            assign tasks, track requests, and approve work in real time.
+          </p>
+
+          <ul class="hero-points">
+            <li><i class="bi bi-check2-circle"></i> Kanban-style task tracking</li>
+            <li><i class="bi bi-check2-circle"></i> Manager approvals & status</li>
+            <li><i class="bi bi-check2-circle"></i> Clean dashboards for both roles</li>
+          </ul>
+
+          <div class="hero-actions">
+            <button class="btn hero-primary" (click)="scrollToRoles()">
+              Choose my panel
+              <i class="bi bi-arrow-down-right"></i>
+            </button>
+
+            <button class="btn hero-secondary" (click)="loginUser()">
+              Quick user login
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <div class="meta-item">
+              <span class="meta-value">24+</span>
+              <span class="meta-label">Active managers</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-value">120+</span>
+              <span class="meta-label">Tracked requests</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-value">Real-time</span>
+              <span class="meta-label">Token-secured sessions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: KANBAN VISUAL -->
+        <div class="hero-right reveal">
+          <div class="kanban-card">
+
+            <div class="kanban-header">
+              <div class="k-badge">TaskM Board</div>
+              <div class="k-avatars">
+                <span class="avatar avatar-a">M</span>
+                <span class="avatar avatar-b">U</span>
+                <span class="avatar avatar-c">+</span>
+              </div>
+            </div>
+
+            <div class="kanban-columns">
+              <div class="kb-column">
+                <div class="kb-title">To Do</div>
+
+                <div class="kb-card kb-small">
+                  <div class="kb-label violet">New deletion request</div>
+                  <div class="kb-sub">Awaiting manager review</div>
+                </div>
+
+                <div class="kb-card kb-small">
+                  <div class="kb-label blue">Profile update</div>
+                  <div class="kb-sub">User: Vedant R</div>
+                </div>
+              </div>
+
+              <div class="kb-column">
+                <div class="kb-title">In Progress</div>
+
+                <div class="kb-card">
+                  <div class="kb-label amber">Access removal</div>
+                  <div class="kb-sub">Assigned · Manager Rahul</div>
+                  <div class="kb-footer">
+                    <span class="pill pill-pending">PENDING</span>
+                    <span class="kb-timestamp">Today · 11:24</span>
+                  </div>
+                </div>
+
+                <div class="kb-card kb-tiny">
+                  <div class="kb-label teal">Token refresh check</div>
+                  <div class="kb-sub">Security filter chain</div>
+                </div>
+              </div>
+
+              <div class="kb-column">
+                <div class="kb-title">Done</div>
+
+                <div class="kb-card kb-done">
+                  <div class="kb-label green">Account deletion</div>
+                  <div class="kb-sub">Approved · Manager Console</div>
+                  <div class="kb-footer">
+                    <span class="pill pill-approved">
+                      <i class="bi bi-check2"></i> APPROVED
+                    </span>
+                    <span class="kb-timestamp">Yesterday</span>
+                  </div>
+                </div>
+
+                <div class="kb-card kb-mini">
+                  <div class="kb-label gray">Token monitor</div>
+                  <div class="kb-sub">Access token refreshed</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="kanban-footer">
+              <span class="footer-dot live"></span> Live sync with Manager & User dashboards
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="wave-separator"></div>
+
+    </section>
+
+    <!-- =========================
+        ROLE SECTION
+      ========================= -->
+    <section class="role-section" id="roles">
+      <div class="role-inner">
+
+        <div class="role-heading reveal">
+          <h2>Pick your workspace</h2>
+          <p>TaskM gives a dedicated view for users and managers. Choose how you want to work.</p>
+        </div>
+
+        <div class="role-grid">
+
+          <article class="role-card user-role reveal">
+            <div class="role-tag user-tag">For Users</div>
+            <h3>User Workspace</h3>
+            <p>
+              Submit requests, track decisions, and stay in sync with your manager from a simple, focused interface.
+            </p>
+
+            <ul class="role-list">
+              <li><i class="bi bi-check-circle"></i> Submit account & access requests</li>
+              <li><i class="bi bi-check-circle"></i> View status in one place</li>
+              <li><i class="bi bi-check-circle"></i> Minimal, distraction-free UI</li>
+            </ul>
+
+            <div class="role-actions">
+              <button class="btn role-primary" (click)="loginUser()">Login as User</button>
+              <button class="btn role-secondary" (click)="signupUser()">Create user account</button>
+            </div>
+          </article>
+
+          <article class="role-card manager-role reveal">
+            <div class="role-tag manager-tag">For Managers</div>
+            <h3>Manager Console</h3>
+            <p>
+              Review requests, manage users under you, and monitor token-based workflows from one dashboard.
+            </p>
+
+            <ul class="role-list">
+              <li><i class="bi bi-check-circle"></i> Manage users mapped to you</li>
+              <li><i class="bi bi-check-circle"></i> Approve / reject requests</li>
+              <li><i class="bi bi-check-circle"></i> Token-aware secure workflow</li>
+            </ul>
+
+            <div class="role-actions">
+              <button class="btn role-primary manager-btn" (click)="loginManager()">Login as Manager</button>
+              <button class="btn role-secondary" (click)="signupManager()">Register as manager</button>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+        CTA FOOTER
+      ========================= -->
+    <section class="cta-section reveal">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h3>Ready to see your tasks differently?</h3>
+          <p>Log in now and experience TaskM’s manager & user views working together.</p>
+        </div>
+
+        <div class="cta-actions">
+          <button class="btn cta-main" (click)="loginUser()">User login</button>
+          <button class="btn cta-ghost" (click)="loginManager()">Manager login</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+

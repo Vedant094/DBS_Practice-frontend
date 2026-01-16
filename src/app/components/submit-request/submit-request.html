@@ -1,0 +1,59 @@
+<div class="submit-bg">
+
+  <!-- MAIN CARD -->
+  <div class="submit-container">
+
+    <!-- HEADER PANEL -->
+    <section class="submit-hero">
+
+      <div class="hero-left">
+        <div class="hero-icon-wrap">
+          <div class="hero-icon-ring"></div>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/7305/7305863.png"
+            class="hero-icon"
+            alt="Submit Icon"
+          />
+        </div>
+
+        <div class="hero-text">
+          <h2 class="hero-title">Submit a New Request</h2>
+          <p class="hero-subtitle">
+            Fill in the details. Your manager will review it shortly.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CONTENT FORM -->
+    <section class="form-card">
+
+      <!-- INPUT -->
+      <div class="form-group">
+        <label class="form-label">
+          <i class="bi bi-pencil-square"></i>
+          Request Type
+        </label>
+        <input
+          class="form-input"
+          placeholder="Enter your request type"
+          [(ngModel)]="requestType"
+        />
+      </div>
+
+      <!-- ALERTS -->
+      <div *ngIf="error" class="alert alert-danger fade-in">{{ error }}</div>
+      <div *ngIf="success" class="alert alert-success fade-in">{{ success }}</div>
+
+      <!-- SUBMIT BUTTON -->
+      <button class="primary-btn" (click)="submit()">
+        <i class="bi bi-send"></i>
+        Submit Request
+      </button>
+
+    </section>
+
+  </div>
+
+</div>

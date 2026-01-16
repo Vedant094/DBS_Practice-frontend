@@ -1,0 +1,35 @@
+<div class="container mt-5">
+
+  <h2 class="mb-3">Dashboard</h2>
+
+  <div class="card p-4">
+
+    <!-- Welcome Message -->
+    <h4>Welcome {{ userEmail }}</h4>
+    <p class="text-muted">Use the buttons below to navigate.</p>
+
+    <hr>
+
+    <!-- MANAGER DASHBOARD ACTIONS -->
+    <div *ngIf="role.isManager()">
+      <h5>Manager Actions</h5>
+      <button class="btn btn-outline-primary me-2" routerLink="/manager-dashboard">Manager Dashboard</button>
+      <button class="btn btn-outline-secondary me-2" routerLink="/manager-users">My Users</button>
+      <button class="btn btn-outline-success me-2" routerLink="/manager-requests">Requests</button>
+    </div>
+
+    <!-- USER DASHBOARD ACTIONS -->
+    <div *ngIf="role.isUser()">
+      <h5>User Actions</h5>
+      <button class="btn btn-outline-primary me-2" routerLink="/user-dashboard">User Dashboard</button>
+      <button class="btn btn-outline-success me-2" routerLink="/my-requests">My Requests</button>
+      <button class="btn btn-outline-secondary me-2" routerLink="/submit-request">Submit Request</button>
+    </div>
+
+    <hr>
+
+    <!-- LOGOUT BUTTON -->
+    <button class="btn btn-danger" (click)="logout()">Logout</button>
+
+  </div>
+</div>

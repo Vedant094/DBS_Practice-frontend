@@ -1,0 +1,82 @@
+<div class="dashboard-wrapper" *ngIf="!loading">
+
+  <!-- HEADER -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+           alt="Manager Icon"
+           class="dashboard-icon" />
+      <div>
+        <h2>Manager Dashboard</h2>
+        <p class="welcome-text">Manage users & requests with ease</p>
+      </div>
+    </div>
+
+    <button class="token-btn" (click)="openTokenModal()">
+      🔐 Tokens
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div *ngIf="manager">
+
+    <div class="card profile-card">
+      <h4>Hello, {{ manager.firstName }}</h4>
+      <p><i class="bi bi-envelope"></i> {{ manager.email }}</p>
+      <p><i class="bi bi-person-badge"></i> ID: {{ manager.id }}</p>
+    </div>
+
+    <div class="action-group">
+      <button class="btn action-btn users-btn" routerLink="/manager-users">
+        <i class="bi bi-people"></i> View My Users
+      </button>
+
+      <button class="btn action-btn request-btn" routerLink="/manager-requests">
+        <i class="bi bi-inboxes"></i> View Requests
+      </button>
+    </div>
+
+    <div class="logout-container">
+      <button class="btn logout-btn" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<div *ngIf="loading">
+  <h4 class="loading-text">Loading Dashboard...</h4>
+</div>
+
+
+<!-- =====================
+        TOKEN MODAL
+     ===================== -->
+<div class="modal-overlay" *ngIf="showTokenModal" (click)="closeTokenModal()"></div>
+
+<div class="modal-card" *ngIf="showTokenModal" (click)="$event.stopPropagation()">
+
+  <h3>🔐 Token Monitor</h3>
+
+  <div class="token-section">
+    <h4>Access Token</h4>
+    <p class="timer">Expires in: {{ accessRemaining }}s</p>
+
+    <pre class="token-box">{{ accessToken }}</pre>
+  </div>
+
+  <div class="token-section">
+    <h4>Refresh Token</h4>
+    <p class="timer green">Expires in: {{ refreshRemaining }}s</p>
+
+    <pre class="token-box">{{ refreshToken }}</pre>
+  </div>
+
+  <button class="refresh-btn" (click)="forceRefresh()">Force Refresh</button>
+
+</div>
+
+ 

@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <h4>Users</h4>
+  <div *ngIf="loading" class="mb-2">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table class="table table-striped" *ngIf="users && users.length">
+    <thead><tr><th>ID</th><th>Name</th><th>Email</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let u of users">
+        <td>{{ u.id }}</td>
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!loading && (!users || users.length===0)" class="text-muted">No users found.</div>
+</div>

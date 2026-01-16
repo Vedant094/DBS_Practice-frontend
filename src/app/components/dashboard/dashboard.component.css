@@ -1,0 +1,67 @@
+/* Center the dashboard content nicely */
+.container {
+  max-width: 900px;
+}
+
+/* Main card styling */
+.card {
+  border-radius: 14px;
+  border: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Subtle card hover effect */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* Headings */
+h2 {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+h4 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+h5 {
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Better paragraph styling */
+p.text-muted {
+  font-size: 15px;
+}
+
+/* Buttons style enhancement */
+button.btn {
+  margin-bottom: 10px;
+  min-width: 180px;
+  font-weight: 500;
+  border-radius: 8px !important;
+  padding: 8px 15px;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect for buttons */
+button.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Section divider spacing */
+hr {
+  opacity: 0.15;
+  margin: 20px 0;
+}
+
+/* Logout button emphasis */
+.btn-danger {
+  font-weight: 600;
+  padding: 10px 20px;
+}

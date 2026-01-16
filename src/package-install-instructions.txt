@@ -1,0 +1,7 @@
+After you create the Angular project (ng new dbs-frontend), ensure you:
+1) npm install bootstrap
+2) Add bootstrap CSS to angular.json styles array:
+   "node_modules/bootstrap/dist/css/bootstrap.min.css",
+   "src/styles.css"
+3) Copy the `src/` folder from this archive into your project's src/ (replace).
+4) ng serve --open

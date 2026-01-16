@@ -1,0 +1,116 @@
+<div class="requests-bg">
+
+  <!-- ===================================
+        HEADER BAR
+  =================================== -->
+  <div class="requests-header">
+
+    <!-- LEFT -->
+    <div class="requests-header-left">
+      <div class="icon-wrap">
+        <div class="icon-ring"></div>
+        <img 
+          src="https://cdn-icons-png.flaticon.com/512/8146/8146003.png"
+          class="header-icon"
+        />
+      </div>
+
+      <div class="title-wrap">
+        <h2 class="page-title">All Requests</h2>
+        <p class="subtitle">Review, approve, or reject user requests</p>
+      </div>
+    </div>
+
+    <!-- RIGHT STATS -->
+    <div class="header-stats">
+      <div class="stat-pill">
+        <span class="stat-label">Total</span>
+        <span class="stat-value">{{ requests.length }}</span>
+      </div>
+      <div class="stat-pill alt">
+        <span class="stat-label">Filtered</span>
+        <span class="stat-value">{{ filteredRequests.length }}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================================
+       MAIN GLASS CARD AREA
+  =================================== -->
+  <div class="main-card fade-in">
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+
+      <!-- FILTER TABS -->
+      <div class="tabs">
+        <button class="tab" [class.active]="filterStatus==='ALL'" (click)="setFilter('ALL')">All</button>
+        <button class="tab" [class.active]="filterStatus==='PENDING'" (click)="setFilter('PENDING')">Pending</button>
+        <button class="tab" [class.active]="filterStatus==='APPROVED'" (click)="setFilter('APPROVED')">Approved</button>
+        <button class="tab" [class.active]="filterStatus==='REJECTED'" (click)="setFilter('REJECTED')">Rejected</button>
+      </div>
+
+      <!-- PAGE SIZE DROPDOWN -->
+      <select class="page-size" [(ngModel)]="pageSize" (change)="changePageSize()">
+        <option value="5">Show 5</option>
+        <option value="10">Show 10</option>
+        <option value="20">Show 20</option>
+        <option value="9999">Show All</option>
+      </select>
+    </div>
+
+    <!-- ===================================
+         REQUEST LIST (SCROLLABLE)
+    =================================== -->
+    <div class="scroll-area">
+      <div *ngFor="let r of paginatedRequests" class="req-card">
+
+        <div class="req-left">
+          <h3 class="req-type">{{ r.requestType }}</h3>
+
+          <p class="req-status">
+            Status:
+            <span class="status-chip" [ngClass]="r.status.toLowerCase()">
+              {{ r.status }}
+            </span>
+          </p>
+
+          <div class="user-info">
+            <p><strong>ID:</strong> {{ r.user.id }}</p>
+            <p><strong>Name:</strong> {{ r.user.firstName }} {{ r.user.lastName }}</p>
+            <p><strong>Email:</strong> {{ r.user.email }}</p>
+          </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="req-actions" *ngIf="r.status === 'PENDING'">
+          <button class="btn-approve" (click)="approve(r.id)">Approve</button>
+          <button class="btn-reject" (click)="reject(r.id)">Reject</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================================
+         PAGINATION
+    =================================== -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button class="nav-btn" (click)="prevPage()" [disabled]="page === 1">‹</button>
+
+      <ng-container *ngFor="let p of [].constructor(totalPages); let i = index">
+        <button
+          class="page-pill"
+          [class.active]="page === i+1"
+          (click)="goToPage(i+1)"
+        >
+          {{ i + 1 }}
+        </button>
+      </ng-container>
+
+      <button class="nav-btn" (click)="nextPage()" [disabled]="page === totalPages">›</button>
+    </div>
+
+  </div>
+
+</div>

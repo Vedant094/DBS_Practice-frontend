@@ -1,0 +1,100 @@
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Heading */
+.container h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Loading text */
+.container div[ng-reflect-ng-if="loading"],
+.text-muted {
+  font-size: 0.95rem;
+  color: #777;
+  margin-top: 10px;
+}
+
+/* Alert styling */
+.alert {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin-top: 15px;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px;
+  color: #555;
+  font-weight: 600;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.table td {
+  padding: 12px;
+  color: #444;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* Row hover effect */
+.table tbody tr:hover {
+  background-color: #f1f5f9;
+  transition: background 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tr {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+}
