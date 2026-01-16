@@ -59,5 +59,5 @@ export class SubmitRequestComponent {
       error: () => this.error = 'Failed to resolve user'
     });
   }
-}
+} 
 

@@ -1,59 +1,188 @@
-<!-- src/app/components/user-dashboard/user-dashboard.html -->
-<div class="dashboard-wrapper" *ngIf="!loading">
+<div class="dashboard-bg">
 
-  <!-- Welcome Section -->
-  <div class="header-card fade-in">
-
-    <img 
-      src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
-      alt="User Icon"
-      class="user-illustration"
-    />
-
-    <h2 class="welcome-title">
-      Welcome, {{ user.firstName || user.email }}
-    </h2>
-    <p class="welcome-sub">Your personalized TaskM dashboard</p>
+  <!-- LOADING STATE -->
+  <div *ngIf="loading" class="loader-screen">
+    <div class="loader-circle"></div>
+    <p>Preparing your workspace...</p>
   </div>
 
-  <!-- Details Card -->
-  <div class="info-card slide-up">
-    <h4>User Information</h4>
-
-    <div class="info-row">
-      <i class="bi bi-envelope"></i>
-      <span>Email:</span>
-      <strong>{{ user.email }}</strong>
+  <!-- ERROR STATE -->
+  <div *ngIf="!loading && error" class="error-banner">
+    <div class="error-text">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span>{{ error }}</span>
     </div>
-
-    <div class="info-row">
-      <i class="bi bi-person-badge"></i>
-      <span>User ID:</span>
-      <strong>{{ user.id }}</strong>
-    </div>
-
+    <button class="btn error-btn" (click)="logout()">Back to Home</button>
   </div>
 
-  <!-- Action Buttons -->
-  <div class="action-container fade-up">
-    <button class="btn action-btn primary" routerLink="/submit-request">
-      <i class="bi bi-plus-circle"></i> Submit New Request
-    </button>
+  <!-- MAIN DASHBOARD -->
+  <div *ngIf="!loading && user" class="dashboard-wrapper">
 
-    <button class="btn action-btn success" routerLink="/my-requests">
-      <i class="bi bi-list-task"></i> View My Requests
-    </button>
+    <!-- ======================
+          TOP HEADER w/ TOKEN
+        ====================== -->
+    <section class="hero-panel">
+
+      <div class="hero-left">
+        <div class="avatar-wrap">
+          <div class="avatar-ring"></div>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+            alt="User Icon"
+            class="user-avatar"
+          />
+        </div>
+
+        <div class="hero-text">
+          <h2 class="hero-title">
+            Welcome back, <span>{{ user.firstName || 'User' }}</span>
+          </h2>
+          <p class="hero-subtitle">
+            This is your TaskM snapshot — access requests, track status, and stay aligned.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="meta-item">
+          <span class="meta-label">Email</span>
+          <span class="meta-value">{{ user.email }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">User ID</span>
+          <span class="meta-value">#{{ user.id }}</span>
+        </div>
+
+        <!-- TOKEN BUTTON (NEW) -->
+        <button 
+          class="token-btn"
+          (click)="openTokenModal()"
+          [style.--progress]="accessUsagePercent + '%'"
+        >
+          🔐 Tokens
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ============================
+            MAIN CONTENT GRID
+        ============================ -->
+    <section class="content-grid">
+
+      <!-- USER INFO PANEL -->
+      <div class="panel info-panel">
+        <div class="panel-header">
+          <h3>User overview</h3>
+          <span class="pill">Profile</span>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">
+            <i class="bi bi-person"></i>
+            <span>Name</span>
+          </div>
+          <div class="info-value">
+            {{ (user.firstName || '') + (user.lastName ? (' ' + user.lastName) : '') || '—' }}
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">
+            <i class="bi bi-envelope"></i>
+            <span>Email</span>
+          </div>
+          <div class="info-value">
+            {{ user.email }}
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">
+            <i class="bi bi-person-badge"></i>
+            <span>User ID</span>
+          </div>
+          <div class="info-value">
+            {{ user.id }}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ACTIONS PANEL -->
+      <div class="panel actions-panel">
+        <div class="panel-header">
+          <h3>Actions</h3>
+          <span class="pill neutral">Quick access</span>
+        </div>
+
+        <p class="panel-subtext">
+          Create new requests or review your existing ones from here.
+        </p>
+
+        <div class="action-buttons">
+
+          <button
+            class="btn primary-action-btn"
+            routerLink="/submit-request">
+            <i class="bi bi-plus-circle"></i>
+            Submit new request
+          </button>
+
+          <button
+            class="btn secondary-action-btn"
+            routerLink="/my-requests">
+            <i class="bi bi-card-checklist"></i>
+            View my requests
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-bar">
+      <div class="footer-left">
+        <span class="footer-label">Signed in as</span>
+        <span class="footer-value">{{ user.email }}</span>
+      </div>
+
+      <button class="btn logout-chip" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+      </button>
+    </footer>
+
   </div>
-
-  <!-- Logout -->
-  <div class="logout-container fade-up">
-    <button class="btn logout-btn" (click)="logout()">
-      <i class="bi bi-box-arrow-right"></i> Logout
-    </button>
-  </div>
-
 </div>
 
-<div *ngIf="loading">
-  <h4 class="text-center mt-4">Loading...</h4>
+<!-- =================================
+            TOKEN MODAL (NEW)
+     ================================= -->
+<div class="modal-overlay" *ngIf="showTokenModal" (click)="closeTokenModal()"></div>
+
+<div class="modal-card" *ngIf="showTokenModal" (click)="$event.stopPropagation()">
+
+  <h3>🔐 Token Monitor</h3>
+
+  <div class="token-section">
+    <h4>Access Token</h4>
+    <p class="timer" [ngClass]="{ 'expired': accessRemaining <= 5 }">
+      Expires in: {{ accessRemaining }}s
+    </p>
+    <pre class="token-box">{{ accessToken }}</pre>
+  </div>
+
+  <div class="token-section">
+    <h4>Refresh Token</h4>
+    <p class="timer green">
+      Expires in: {{ refreshRemaining }}s
+    </p>
+    <pre class="token-box">{{ refreshToken }}</pre>
+  </div>
+
+  <button class="refresh-btn" (click)="forceRefresh()">Force Refresh</button>
+
 </div>

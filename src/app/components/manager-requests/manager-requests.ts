@@ -86,4 +86,18 @@ export class ManagerRequestsComponent implements OnInit {
     this.http.post(`${this.base}/managers/reject-request/${id}/${this.managerId}`, {})
       .subscribe({ next: () => this.loadRequests(), error: (err) => console.error('Reject failed', err) });
   }
+
+
+  changePageSize() {
+  // Reset to page 1 whenever page size changes
+  this.page = 1;
+
+  // If user selects "ALL", set pageSize to a huge number
+  this.pageSize = Number(this.pageSize);
+
+  this.totalPages = Math.max(1, Math.ceil(this.filteredRequests.length / this.pageSize));
+  this.paginate();
 }
+
+}
+ 

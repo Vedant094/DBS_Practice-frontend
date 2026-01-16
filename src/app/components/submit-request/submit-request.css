@@ -1,102 +1,198 @@
-/* Full-page wrapper */
-.submit-wrapper {
-  min-height: 90vh;
+/* ============================
+   BACKGROUND
+============================ */
+.submit-bg {
+  min-height: 100vh;
+  padding: 32px 20px;
+  background: radial-gradient(circle at top left, #e0ecff 0, #dbeafe 30%, #eef2ff 70%, #f9fafb 100%);
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: linear-gradient(160deg, #eef2ff, #f0f9ff, #e0f7fa);
-  padding: 30px;
+  align-items: flex-start;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  animation: fadePage 0.7s ease;
 }
 
-/* Card styling with animation */
-.submit-card {
+/* ============================
+   MAIN CONTAINER
+============================ */
+.submit-container {
   width: 100%;
-  max-width: 480px;
-  background: #fff;
-  border-radius: 18px;
-  padding: 25px;
-  box-shadow: 0px 12px 40px rgba(0,0,0,0.08);
-  animation: fadeInUp 0.8s ease;
+  max-width: 700px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 24px;
+  border: 1px solid rgba(148,163,184,0.3);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 40px rgba(17,24,39,0.18);
+  padding: 24px 28px;
+  animation: pop 0.4s ease;
 }
 
-/* Illustration */
-.illustration {
+/* ============================
+   HERO PANEL
+============================ */
+.submit-hero {
   display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(148,163,184,0.28);
+  margin-bottom: 22px;
 }
 
-.submit-img {
-  width: 120px;
-  animation: float 3s ease-in-out infinite;
+/* icon */
+.hero-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-/* Floating animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Card animation */
-@keyframes fadeInUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* Title & subtitle */
-.title {
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  color: #6c757d;
-  margin-bottom: 18px;
-}
-
-/* Input group with icon */
-.input-group {
+.hero-icon-wrap {
   position: relative;
+  width: 70px;
+  height: 70px;
 }
 
-.input-group i {
+.hero-icon-ring {
   position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #6c757d;
-  font-size: 1.1rem;
+  inset: 0;
+  border-radius: 100%;
+  background: conic-gradient(from 120deg, #4f46e5, #2563eb, #6366f1, #4f46e5);
+  padding: 2px;
+  animation: rotate 5s linear infinite;
+  opacity: 0.9;
 }
 
-.input-group input {
-  padding-left: 40px !important;
-  border-radius: 10px;
-  border: 1px solid #d0d7de;
-  transition: 0.3s ease;
+.hero-icon {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: #ffffffee;
+  object-fit: cover;
+  padding: 6px;
 }
 
-.input-group input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+/* text */
+.hero-title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
 }
 
-/* Alerts */
-.alert {
-  border-radius: 10px;
-  padding: 10px;
+.hero-subtitle {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 0.95rem;
 }
 
-/* Submit button animation */
-.btn-primary {
-  padding: 12px;
-  border-radius: 10px;
+/* ============================
+   FORM CARD
+============================ */
+.form-card {
+  margin-top: 10px;
+  background: #ffffffd9;
+  border-radius: 18px;
+  padding: 22px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 24px rgba(17,24,39,0.08);
+}
+
+/* label */
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 600;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* input */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 1rem;
   transition: 0.25s ease;
 }
 
-.btn-primary:hover {
+.form-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.25);
+}
+
+/* ============================
+   SUBMIT BUTTON
+============================ */
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  box-shadow: 0 10px 24px rgba(99,102,241,0.4);
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.25s ease;
+}
+
+.primary-btn:hover {
   transform: translateY(-3px);
-  background-color: #005ed1;
+  box-shadow: 0 16px 32px rgba(99,102,241,0.55);
+}
+
+/* ============================
+   ALERTS
+============================ */
+.alert {
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 600;
+  animation: fadePage 0.5s ease;
+}
+
+/* ============================
+   ANIMATIONS
+============================ */
+@keyframes fadePage {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 768px) {
+  .submit-container {
+    padding: 18px;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-icon-wrap {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 

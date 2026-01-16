@@ -1,33 +1,207 @@
-<div class="users-wrapper">
+<div class="users-bg">
 
-  <div class="container mt-4 fade-in">
+  <!-- ===========================
+       HEADER BAR
+  ============================ -->
+  <div class="users-header">
 
-    <h3>Users Under You</h3>
+    <!-- LEFT: Title + Subtitle -->
+    <div class="users-header-left">
+      <div class="users-icon-wrap">
+        <div class="users-icon-ring"></div>
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+          alt="Users Icon"
+          class="users-icon"
+        />
+      </div>
 
-    <!-- Users Table -->
-    <div class="table-card">
-      <table class="table table-hover mt-3" *ngIf="users.length">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
+      <div class="users-title-block">
+        <h2 class="users-title">Users Under You</h2>
+        <p class="users-subtitle">Search, manage, and review all users associated with your account.</p>
+      </div>
+    </div>
 
-        <tbody>
-          <tr *ngFor="let u of users" class="row-anim">
-            <td>{{ u.id }}</td>
-            <td>{{ u.firstName }} {{ u.lastName }}</td>
-            <td>{{ u.email }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Empty State -->
-      <div class="empty-state" *ngIf="!users.length && !loading">
-        <p>No users assigned to you yet.</p>
+    <!-- RIGHT: Quick stats -->
+    <div class="users-header-right">
+      <div class="stat-pill">
+        <span class="stat-label">Total</span>
+        <span class="stat-value">{{ users.length || 0 }}</span>
+      </div>
+      <div class="stat-pill alt">
+        <span class="stat-label">Filtered</span>
+        <span class="stat-value">{{ filteredUsers.length || 0 }}</span>
       </div>
     </div>
   </div>
+
+  <!-- ===========================
+       MAIN GLASS CARD
+  ============================ -->
+  <div class="users-main-card fade-in">
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <input
+        type="text"
+        class="toolbar-input"
+        placeholder="Search users by name, email or phone..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+      />
+
+      <select
+        class="toolbar-select"
+        [(ngModel)]="filterOption"
+        (change)="onFilterChange()"
+      >
+        <option value="ALL">All</option>
+        <option value="A-M">A - M</option>
+        <option value="N-Z">N - Z</option>
+      </select>
+
+      <select
+        class="toolbar-select"
+        [(ngModel)]="sortOption"
+        (change)="onSortChange()"
+      >
+        <option value="A-Z">Sort: A → Z</option>
+        <option value="Z-A">Sort: Z → A</option>
+        <option value="NEWEST">Sort: Newest</option>
+        <option value="OLDEST">Sort: Oldest</option>
+      </select>
+
+      <label class="show-all">
+        <input
+          type="checkbox"
+          [(ngModel)]="showAll"
+          (change)="onShowAllChange()"
+        />
+        Show all
+      </label>
+    </div>
+
+    <!-- CARDS AREA -->
+    <div class="cards-area" *ngIf="loading">
+      <div class="cards-grid">
+        <div class="user-card skeleton" *ngFor="let s of skeletonArray"></div>
+      </div>
+    </div>
+
+    <div class="cards-area" *ngIf="!loading && paginatedUsers.length">
+      <div
+        class="cards-grid page-animate"
+        [class.animating]="pageAnimating"
+      >
+        <div
+          class="user-card"
+          *ngFor="let u of paginatedUsers"
+          (click)="openPopup(u)"
+        >
+          <div class="avatar-box">
+            <div class="avatar">{{ initials(u) }}</div>
+          </div>
+
+          <h4 class="user-name">{{ u.firstName }} {{ u.lastName }}</h4>
+          <p class="user-email">{{ u.email || '—' }}</p>
+
+          <div class="meta-row">
+            <span class="meta-id">ID: {{ u.id }}</span>
+            <span class="meta-role">{{ u.role || 'Member' }}</span>
+          </div>
+
+          <div class="btn-row">
+            <button
+              class="view-btn"
+              (click)="viewUser(u); $event.stopPropagation()"
+            >
+              View
+            </button>
+            <button
+              class="edit-btn"
+              (click)="editUser(u); $event.stopPropagation()"
+            >
+              Edit
+            </button>
+            <button
+              class="remove-btn"
+              (click)="removeUser(u); $event.stopPropagation()"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div class="empty-state" *ngIf="!loading && !paginatedUsers.length">
+      <p>No users found for the current filters.</p>
+    </div>
+
+    <!-- PAGINATION -->
+    <div
+      class="pagination"
+      *ngIf="!loading && !showAll && totalPages > 1"
+    >
+      <button
+        class="nav-btn"
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+      >
+        ‹
+      </button>
+
+      <ng-container *ngFor="let page of pagesArray()">
+        <button
+          class="page-pill"
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      </ng-container>
+
+      <button
+        class="nav-btn"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        ›
+      </button>
+    </div>
+
+  </div>
 </div>
+
+<!-- ===========================
+     POPUP OVERLAY & CARD
+============================ -->
+<div class="popup-overlay" *ngIf="showPopup" (click)="closePopup()"></div>
+
+<div class="popup-card" *ngIf="showPopup" (click)="$event.stopPropagation()">
+  <span class="close-btn" (click)="closePopup()">×</span>
+
+  <div class="popup-top">
+    <div class="popup-avatar">{{ initials(selectedUser) }}</div>
+    <div class="popup-title">
+      <h2>{{ selectedUser?.firstName }} {{ selectedUser?.lastName }}</h2>
+      <div class="sub">{{ selectedUser?.email || '—' }}</div>
+    </div>
+  </div>
+
+  <div class="popup-body">
+    <div class="field"><strong>User ID:</strong> {{ selectedUser?.id || '—' }}</div>
+    <div class="field"><strong>Role:</strong> {{ selectedUser?.role || 'Member' }}</div>
+    <div class="field"><strong>Phone:</strong> {{ selectedUser?.phone || '—' }}</div>
+    <div class="field"><strong>Joined:</strong> {{ formatDate(selectedUser?.joinedDate) }}</div>
+    <div class="field"><strong>Address:</strong> {{ selectedUser?.address || '—' }}</div>
+    <div class="field"><strong>Status:</strong> {{ selectedUser?.status || 'Active' }}</div>
+  </div>
+
+  <div class="popup-actions">
+    <button class="edit-btn" (click)="editUser(selectedUser)">Edit</button>
+    <button class="remove-btn" (click)="removeUser(selectedUser)">Remove</button>
+  </div>
+</div>
+

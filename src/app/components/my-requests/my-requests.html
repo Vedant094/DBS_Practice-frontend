@@ -1,25 +1,81 @@
-<div class="requests-wrapper">
+<div class="requests-bg">
 
-  <!-- Back To Dashboard Button -->
-  <div class="back-action">
-    <button class="btn btn-outline-primary" routerLink="/user-dashboard">
-      ← Back to Dashboard
-    </button>
+  <!-- ===========================
+       TOP BAR (Option C)
+  ============================ -->
+  <div class="header-bar">
+
+    <!-- LEFT: Title -->
+    <div class="header-left">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/8146/8146003.png"
+        class="title-icon"
+      />
+      <div class="title-block">
+        <h2 class="title">My Requests</h2>
+        <p class="subtitle">View, filter, and track your submitted requests</p>
+      </div>
+    </div>
+
+    <!-- RIGHT: SEARCH (optional future) -->
+    <div class="header-right">
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Search Request Type..."
+        [(ngModel)]="searchText"
+        (input)="applyFilters()"
+      />
+    </div>
   </div>
 
-  
-  <div class="container animated-container">
-    <h3 class="page-title">
-      <img src="https://cdn-icons-png.flaticon.com/512/8146/8146003.png"
-           class="title-icon" />
-      My Requests
-    </h3>
+  <!-- ===========================
+       FILTER TABS
+  ============================ -->
+  <div class="tabs-wrapper">
+    <div
+      class="tab"
+      [class.active]="activeFilter === 'ALL'"
+      (click)="setFilter('ALL')"
+    >
+      All
+    </div>
 
-    <!-- Table -->
-    <table class="table table-striped mt-3" *ngIf="requests.length">
+    <div
+      class="tab"
+      [class.active]="activeFilter === 'PENDING'"
+      (click)="setFilter('PENDING')"
+    >
+      Pending
+    </div>
+
+    <div
+      class="tab"
+      [class.active]="activeFilter === 'APPROVED'"
+      (click)="setFilter('APPROVED')"
+    >
+      Approved
+    </div>
+
+    <div
+      class="tab"
+      [class.active]="activeFilter === 'REJECTED'"
+      (click)="setFilter('REJECTED')"
+    >
+      Rejected
+    </div>
+  </div>
+
+  <!-- ===========================
+       MAIN CONTAINER CARD
+  ============================ -->
+  <div class="requests-container">
+
+    <!-- TABLE -->
+    <table *ngIf="filteredRequests.length" class="requests-table">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>#</th>
           <th>Request Type</th>
           <th>Status</th>
           <th>Created</th>
@@ -27,33 +83,44 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let r of requests" class="row-animate">
+        <tr *ngFor="let r of filteredRequests" class="request-row">
           <td>{{ r.id }}</td>
 
           <td>
-            <div class="request-type">
-              <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png"
-                   class="type-icon" />
+            <div class="type-cell">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png"
+                class="cell-icon"
+              />
               {{ r.requestType }}
             </div>
           </td>
 
           <td>
-            <span class="badge bg-warning" *ngIf="r.status==='PENDING'">PENDING</span>
-            <span class="badge bg-success" *ngIf="r.status==='APPROVED'">APPROVED</span>
-            <span class="badge bg-danger" *ngIf="r.status==='REJECTED'">REJECTED</span>
+            <span class="badge pending" *ngIf="r.status === 'PENDING'">PENDING</span>
+            <span class="badge approved" *ngIf="r.status === 'APPROVED'">APPROVED</span>
+            <span class="badge rejected" *ngIf="r.status === 'REJECTED'">REJECTED</span>
           </td>
 
-          <td>{{ r.createdAt ? (r.createdAt | date:'short') : '-' }}</td>
+          <td>{{ r.createdAt ? (r.createdAt | date : "short") : "-" }}</td>
         </tr>
       </tbody>
     </table>
 
-    <!-- Empty State -->
-    <div class="empty" *ngIf="!requests.length">
-      <img src="https://cdn-icons-png.flaticon.com/512/4076/4076679.png" class="empty-img" />
-      <p>You have no requests yet.</p>
+    <!-- EMPTY STATE -->
+    <div class="empty-state" *ngIf="!filteredRequests.length">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4076/4076679.png"
+        class="empty-img"
+      />
+      <p class="empty-text">No requests found for this filter.</p>
+
+      <button class="create-btn" routerLink="/submit-request">
+        <i class="bi bi-plus-circle"></i> Create Request
+      </button>
     </div>
 
   </div>
 </div>
+
+

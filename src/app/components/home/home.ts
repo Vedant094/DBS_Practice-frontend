@@ -1,4 +1,7 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  Component,
+  AfterViewInit
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../auth/theme.service';
 
@@ -8,44 +11,65 @@ import { ThemeService } from '../../auth/theme.service';
   styleUrls: ['./home.css'],
   standalone: false
 })
-export class Home {
+export class Home implements AfterViewInit {
 
-  userOpen = false;
-  managerOpen = false;
+  constructor(
+    private router: Router,
+    public themeService: ThemeService
+  ) {}
 
-  constructor(private router: Router,public themeService:ThemeService) {}
-
-  toggleUser() {
-    this.userOpen = !this.userOpen;
-    this.managerOpen = false;
+  // THEME
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 
-  toggleManager() {
-    this.managerOpen = !this.managerOpen;
-    this.userOpen = false;
-  }
-
-  navigate(route: string) {
-    this.userOpen = false;
-    this.managerOpen = false;
-    this.router.navigate([route]);
-  }
-
-  // CLOSE DROPDOWNS WHEN CLICKING OUTSIDE
-  @HostListener('document:click', ['$event'])
-  handleClick(event: Event) {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.dropdown')) {
-      this.userOpen = false;
-      this.managerOpen = false;
+  // SCROLL TO ROLE SECTION
+  scrollToRoles() {
+    const el = document.getElementById('roles');
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   }
 
-  login(){
+  // SCROLL REVEAL
+  ngAfterViewInit() {
+    this.setupScrollReveal();
+  }
+
+  private setupScrollReveal() {
+    const elements = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    elements.forEach(el => observer.observe(el));
+  }
+
+  // ROUTING
+  loginUser() {
     this.router.navigate(['/login']);
   }
 
-  toggleTheme(){
-    this.themeService.toggleTheme();
+  signupUser() {
+    this.router.navigate(['/register-user']);
+  }
+
+  loginManager() {
+    this.router.navigate(['/login']);
+  }
+
+  signupManager() {
+    this.router.navigate(['/register-manager']);
   }
 }

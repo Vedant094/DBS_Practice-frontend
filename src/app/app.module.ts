@@ -51,12 +51,19 @@ import { Home } from './components/home/home';
     FormsModule,
     HttpClientModule,
     CommonModule
-],
+  ],
   providers: [
     AuthService,
     AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+
+
+

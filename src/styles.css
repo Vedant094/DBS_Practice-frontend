@@ -415,3 +415,227 @@ textarea.form-control { resize: vertical; }
    ================================ */
 .hover-lift { transition: transform var(--transition), box-shadow var(--transition); }
 
+
+
+
+/* ============================================================
+   PREMIUM GLOBAL CSS ADD-ONS (SAFE, NON-BREAKING, ADDITIVE ONLY)
+   ============================================================ */
+
+
+/* ==========================================
+   1) Page Fade-In Animation for Route Loads
+   ========================================== */
+.page-fade {
+  opacity: 0;
+  animation: pageFadeIn 0.7s ease forwards;
+}
+
+@keyframes pageFadeIn {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ==========================================
+   2) Universal Soft Glow Hover
+   ========================================== */
+.hover-glow {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-glow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(11, 110, 253, 0.35);
+}
+
+
+/* ==========================================
+   3) Smooth Buttons Enhancement
+   ========================================== */
+.btn {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.20s ease,
+    box-shadow 0.25s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+
+/* ==========================================
+   4) Card Elevation Enhancement
+   ========================================== */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   5) Premium Section Divider
+   ========================================== */
+.section-divider {
+  width: 100%;
+  height: 2px;
+  margin: 24px 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.12),
+    transparent
+  );
+}
+
+
+/* ==========================================
+   6) Premium Input Glow on Focus
+   ========================================== */
+.form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(11, 110, 253, 0.18);
+}
+
+
+/* ==========================================
+   7) Smooth Table Hover Highlight
+   ========================================== */
+.table tbody tr {
+  transition: background-color 0.22s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(11, 110, 253, 0.08);
+}
+
+
+/* ==========================================
+   8) Global Smooth Scroll
+   ========================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* ==========================================
+   9) Button Glow Variants
+   ========================================== */
+.btn-primary:hover {
+  box-shadow: 0 6px 16px rgba(11, 110, 253, 0.40);
+}
+
+.btn-success:hover {
+  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.35);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 6px 16px rgba(220, 53, 69, 0.35);
+}
+
+
+/* ==========================================
+   10) Smooth Fade Utility
+   ========================================== */
+.fade-smooth {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fade-smooth-visible {
+  opacity: 1;
+}
+
+
+/* ==========================================
+   11) Micro Interaction: Icon Hover Lift
+   ========================================== */
+.icon-hover {
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.icon-hover:hover {
+  transform: translateY(-3px);
+  color: var(--color-primary);
+}
+
+
+/* ==========================================
+   12) Premium Shadow Utilities
+   ========================================== */
+.shadow-soft {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+}
+
+.shadow-deep {
+  box-shadow: 0 14px 34px rgba(0,0,0,0.18);
+}
+
+
+/* ==========================================
+   13) Animated Gradient Border (Utility)
+   ========================================== */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #2563eb, #9333ea, #f43f5e);
+  -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: gradientMove 4s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+
+/* ==========================================
+   14) Pulsy Glow Animation (for special UI)
+   ========================================== */
+.glow-pulse {
+  animation: glowPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+  0%   { box-shadow: 0 0 0 rgba(11,110,253,0.0); }
+  50%  { box-shadow: 0 0 18px rgba(11,110,253,0.45); }
+  100% { box-shadow: 0 0 0 rgba(11,110,253,0.0); }
+}
+
+
+/* ==========================================
+   15) Subtle Pop-in Animation (usable anywhere)
+   ========================================== */
+.pop-in {
+  opacity: 0;
+  transform: scale(0.96);
+  animation: popIn 0.45s ease forwards;
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+

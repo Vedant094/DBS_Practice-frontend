@@ -1,14 +1,20 @@
 <div class="dashboard-wrapper" *ngIf="!loading">
 
+  <!-- HEADER -->
   <div class="dashboard-header">
-    <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
-         alt="Manager Icon"
-         class="dashboard-icon" />
-
-    <div>
-      <h2>Manager Dashboard</h2>
-      <p class="welcome-text">Manage users & requests with ease</p>
+    <div class="header-left">
+      <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+           alt="Manager Icon"
+           class="dashboard-icon" />
+      <div>
+        <h2>Manager Dashboard</h2>
+        <p class="welcome-text">Manage users & requests with ease</p>
+      </div>
     </div>
+
+    <button class="token-btn" (click)="openTokenModal()">
+      🔐 Tokens
+    </button>
   </div>
 
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
@@ -44,3 +50,33 @@
 <div *ngIf="loading">
   <h4 class="loading-text">Loading Dashboard...</h4>
 </div>
+
+
+<!-- =====================
+        TOKEN MODAL
+     ===================== -->
+<div class="modal-overlay" *ngIf="showTokenModal" (click)="closeTokenModal()"></div>
+
+<div class="modal-card" *ngIf="showTokenModal" (click)="$event.stopPropagation()">
+
+  <h3>🔐 Token Monitor</h3>
+
+  <div class="token-section">
+    <h4>Access Token</h4>
+    <p class="timer">Expires in: {{ accessRemaining }}s</p>
+
+    <pre class="token-box">{{ accessToken }}</pre>
+  </div>
+
+  <div class="token-section">
+    <h4>Refresh Token</h4>
+    <p class="timer green">Expires in: {{ refreshRemaining }}s</p>
+
+    <pre class="token-box">{{ refreshToken }}</pre>
+  </div>
+
+  <button class="refresh-btn" (click)="forceRefresh()">Force Refresh</button>
+
+</div>
+
+ 
